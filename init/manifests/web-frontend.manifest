@@ -1,0 +1,7 @@
+# src-path -> dest-path (relative to project root)
+claude-md/simple-project.md -> CLAUDE.md
+rules-snippets/code-style/typescript-strict.md -> .claude/rules/code-style.md
+rules-snippets/testing/tdd-required.md -> .claude/rules/testing.md
+rules-snippets/git-conventions/conventional-commits.md -> .claude/rules/git.md
+commands/review.md -> .claude/commands/review.md
+settings/settings.json.example -> .claude/settings.json

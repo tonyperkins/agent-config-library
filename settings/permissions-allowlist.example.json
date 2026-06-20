@@ -1,0 +1,14 @@
+{
+  "_comment": "Common read-only commands worth pre-allowing to cut down on permission prompts. Review before merging into a real settings.json.",
+  "allow": [
+    "Bash(git status)",
+    "Bash(git diff*)",
+    "Bash(git log*)",
+    "Bash(ls*)",
+    "Bash(cat package.json)",
+    "Bash(npm test*)",
+    "Bash(npm run build*)",
+    "Bash(npm run lint*)",
+    "Bash(pytest*)"
+  ]
+}

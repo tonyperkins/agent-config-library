@@ -1,0 +1,9 @@
+# src-path -> dest-path (relative to project root)
+claude-md/complex-project-root.md -> CLAUDE.md
+rules-snippets/testing/tdd-required.md -> .claude/rules/testing.md
+rules-snippets/security/no-secrets-in-code.md -> .claude/rules/security.md
+rules-snippets/git-conventions/conventional-commits.md -> .claude/rules/git.md
+commands/review.md -> .claude/commands/review.md
+commands/deploy-checklist.md -> .claude/commands/deploy-checklist.md
+settings/settings.json.example -> .claude/settings.json
+mcp/mcp-config-examples.json -> .mcp.json
