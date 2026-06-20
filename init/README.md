@@ -12,8 +12,21 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/ma
 
 - `--type` picks a manifest from `manifests/`.
 - `--dest` defaults to the current directory; pass a subdirectory path for monorepo packages.
-- Existing files are never overwritten — re-running it after adding a new manifest entry
-  only adds what's missing.
+- `--force` overwrites every conflicting file without prompting (the "nuclear" option).
+- `--no-backup` skips the backup step when replacing files (pairs with `--force`).
+- `--dry-run` prints what would happen without writing or backing up anything.
+
+### Conflict handling
+
+- A new file (not present locally) is always added.
+- An existing file identical to the repo's current version is skipped silently.
+- An existing file that differs is handled based on context:
+  - **Interactive terminal, no `--force`:** prompts `[s]kip (default) / [r]eplace / [d]iff` per file.
+  - **No terminal available (e.g. piped in a non-interactive context), no `--force`:** skipped with
+    a warning telling you to rerun with `--force`.
+  - **`--force`:** replaced unconditionally, no prompt.
+- Any file that actually gets replaced (via `r` at the prompt, or `--force`) is backed up first to
+  `DEST/.claude-init-backup/<UTC-timestamp>/<same-relative-path>`, unless `--no-backup` is set.
 
 ## Available types
 
