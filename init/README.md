@@ -6,7 +6,7 @@ the `curl | sh` install pattern. No local clone required.
 ## Usage
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<you>/agent-config-library/main/init/init.sh \
+curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh \
   | sh -s -- --type=<simple|api|web-frontend|monorepo> [--dest=.]
 ```
 

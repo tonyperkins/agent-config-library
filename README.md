@@ -24,7 +24,7 @@ to capture lessons as you find what actually works.
 ## Quick start: bootstrap a new project
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<you>/agent-config-library/main/init/init.sh | sh -s -- --type=simple
+curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh | sh -s -- --type=simple
 ```
 
 See `init/README.md` for available types and how to add new ones.

@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 set -eu
 
-REPO_RAW="https://raw.githubusercontent.com/YOURNAME/agent-config-library/main"
+REPO_RAW="https://raw.githubusercontent.com/tonyperkins/agent-config-library/main"
 TYPE=""
 DEST="."
 
 usage() {
-  echo "Usage: curl -fsSL $REPO_RAW/init/init.sh | sh -s -- --type=<simple|api|web-frontend|monorepo> [--dest=.]"
+  echo "Usage: curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh | sh -s -- --type=<simple|api|web-frontend|monorepo> [--dest=.]"
   exit 1
 }
 
