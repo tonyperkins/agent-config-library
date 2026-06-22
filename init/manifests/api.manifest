@@ -1,5 +1,6 @@
 # src-path -> dest-path (relative to project root)
 claude-md/complex-project-root.md -> CLAUDE.md
+agents-md/generic-agents-md.md -> AGENTS.md
 rules-snippets/testing/tdd-required.md -> .claude/rules/testing.md
 rules-snippets/security/no-secrets-in-code.md -> .claude/rules/security.md
 rules-snippets/security/agent-boundaries.md -> .claude/rules/agent-boundaries.md

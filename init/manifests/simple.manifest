@@ -1,5 +1,6 @@
 # src-path -> dest-path (relative to project root)
 claude-md/simple-project.md -> CLAUDE.md
+agents-md/minimal-agents-md.md -> AGENTS.md
 rules-snippets/code-style/minimal.md -> .claude/rules/code-style.md
 rules-snippets/code-style/no-style-in-claude-md.md -> .claude/rules/meta.md
 rules-snippets/workflow/focused-diffs.md -> .claude/rules/workflow.md

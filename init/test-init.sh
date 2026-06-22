@@ -61,6 +61,7 @@ TMPDIR2=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR2" 2>&1
 
 assert_exists "$TMPDIR2/CLAUDE.md" "CLAUDE.md"
+assert_exists "$TMPDIR2/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR2/.claude/rules/code-style.md" ".claude/rules/code-style.md"
 assert_exists "$TMPDIR2/.claude/rules/meta.md" ".claude/rules/meta.md"
 assert_exists "$TMPDIR2/.claude/rules/workflow.md" ".claude/rules/workflow.md"
@@ -166,6 +167,7 @@ TMPDIR8=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=python --dest="$TMPDIR8" 2>&1
 
 assert_exists "$TMPDIR8/CLAUDE.md" "CLAUDE.md"
+assert_exists "$TMPDIR8/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR8/.claude/rules/code-style.md" ".claude/rules/code-style.md"
 assert_contains "$TMPDIR8/.claude/rules/code-style.md" "PEP 8" "python code-style applied"
 assert_exists "$TMPDIR8/.claude/rules/testing.md" ".claude/rules/testing.md"
@@ -180,6 +182,7 @@ echo "=== Test 9: web-frontend includes deploy-checklist ==="
 TMPDIR9=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=web-frontend --dest="$TMPDIR9" 2>&1
 
+assert_exists "$TMPDIR9/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR9/.claude/skills/deploy-checklist/SKILL.md" "deploy-checklist skill"
 assert_exists "$TMPDIR9/.claude/skills/spec/SKILL.md" "spec skill"
 assert_exists "$TMPDIR9/.claude/rules/code-style.md" "code-style.md"
@@ -193,6 +196,7 @@ echo "=== Test 10: simple manifest includes code-style ==="
 TMPDIR10=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR10" 2>&1
 
+assert_exists "$TMPDIR10/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR10/.claude/rules/code-style.md" "code-style.md"
 assert_exists "$TMPDIR10/.claude/skills/spec/SKILL.md" "spec skill"
 assert_exists "$TMPDIR10/.claude/rules/agent-boundaries.md" "agent-boundaries.md"

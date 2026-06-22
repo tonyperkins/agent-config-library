@@ -32,17 +32,15 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/ma
 
 | Type | Pulls in |
 |---|---|
-| `simple` | Minimal CLAUDE.md, full rule set (style, workflow, security, dependencies), spec/plan/review/debug/test-gen/ship skills, settings |
-| `api` | Complex root CLAUDE.md, testing + security + agent-boundaries rules, all skills + deploy-checklist, MCP example |
-| `web-frontend` | Simple CLAUDE.md, TypeScript style + testing rules, all skills + deploy-checklist |
-| `python` | Simple CLAUDE.md, Python PEP 8 style + testing rules, all skills except deploy-checklist |
+| `simple` | Minimal CLAUDE.md + AGENTS.md, full rule set (style, workflow, security, dependencies), spec/plan/review/debug/test-gen/ship skills, settings |
+| `api` | Complex root CLAUDE.md + AGENTS.md, testing + security + agent-boundaries rules, all skills + deploy-checklist, MCP example |
+| `web-frontend` | Simple CLAUDE.md + AGENTS.md, TypeScript style + testing rules, all skills + deploy-checklist |
+| `python` | Simple CLAUDE.md + AGENTS.md, Python PEP 8 style + testing rules, all skills except deploy-checklist |
 | `monorepo` | Complex root CLAUDE.md + AGENTS.md, full rule set, all skills + deploy-checklist, MCP example, subagent templates |
-| `design` | Simple CLAUDE.md + minimal AGENTS.md + DESIGN.md, full rule set, all skills, subagent templates (reviewer, planner) |
+| `design` | Simple CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, all skills, subagent templates (reviewer, planner) |
 | `fullstack` | Complex root CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, all skills + deploy-checklist, subagent templates, MCP example |
 
-**Note:** All types now deploy skills to `.claude/skills/` (the recommended format).
-The legacy `commands/` directory is kept in the repo for backward compatibility but
-is no longer referenced by manifests.
+**All types include AGENTS.md** for cross-tool compatibility (Claude Code, Cursor, Copilot, Codex, Gemini, etc.). CLAUDE.md is the Claude-specific layer on top.
 
 ## Adding a new type
 
