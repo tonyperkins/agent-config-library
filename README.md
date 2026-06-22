@@ -7,6 +7,15 @@ composable rule snippets, skills, slash commands, settings, and MCP config examp
 It's a swipe file you pull from when starting or improving a project's agent config, and a place
 to capture lessons as you find what actually works.
 
+## Table of contents
+
+- [Layout](#layout)
+- [Quick start: bootstrap a new project](#quick-start-bootstrap-a-new-project)
+- [Philosophy](#philosophy)
+- [Testing](#testing)
+- [Changelog](#changelog)
+- [License](#license)
+
 ## Layout
 
 | Folder | Purpose |
@@ -29,9 +38,30 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/ma
 
 See `init/README.md` for available types and how to add new ones.
 
+For reproducible installs, pin to a tagged release:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/refs/tags/v1.0.0/init/init.sh | sh -s -- --type=simple
+```
+
 ## Philosophy
 
 - `claude-md/` = whole files you drop in wholesale for a given project shape.
 - `rules-snippets/` = one rule each, for mixing into a CLAUDE.md you're already building.
 - `notes/lessons-learned.md` is the part worth being disciplined about updating — that's the
   actual compounding value of this repo over time.
+
+## Testing
+
+```bash
+make test        # run the init.sh test suite
+make local-init  # quick dry-run smoke test against the working copy
+```
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for notable changes.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

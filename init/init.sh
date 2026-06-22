@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-REPO_RAW="https://raw.githubusercontent.com/tonyperkins/agent-config-library/main"
+REPO_RAW="${REPO_RAW:-https://raw.githubusercontent.com/tonyperkins/agent-config-library/main}"
 TYPE=""
 DEST="."
 FORCE=0
@@ -12,7 +12,7 @@ usage() {
   cat <<USAGE
 Usage:
   curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh \\
-    | sh -s -- --type=<simple|api|web-frontend|monorepo> [options]
+    | sh -s -- --type=<simple|api|web-frontend|python|monorepo> [options]
 
 Options:
   --type=TYPE      Required. Which manifest to use (see manifests/).
@@ -87,9 +87,15 @@ backup_then_replace() {
 while IFS= read -r line; do
   [ -z "$line" ] && continue
   case "$line" in \#*) continue ;; esac
-  src=$(echo "$line" | awk '{print $1}')
-  dst=$(echo "$line" | awk '{print $3}')
-  [ -z "$src" ] || [ -z "$dst" ] && continue
+  line="${line%% \#*}"
+  [ -z "$line" ] && continue
+  src="${line%% -> *}"
+  dst="${line##* -> }"
+  src="${src#"${src%%[![:space:]]*}"}"
+  src="${src%"${src##*[![:space:]]}"}"
+  dst="${dst#"${dst%%[![:space:]]*}"}"
+  dst="${dst%"${dst##*[![:space:]]}"}"
+  [ -z "$src" ] || [ -z "$dst" ] || [ "$src" = "$dst" ] && continue
 
   mkdir -p "$DEST/$(dirname "$dst")"
   tmpfile=$(mktemp)

@@ -1,5 +1,5 @@
 {
-  "_comment": "Example hooks block for settings.json — runs lint after edits, before letting a commit-shaped action proceed.",
+  "_comment": "Example hooks block for settings.json — runs lint after edits, before letting a commit-shaped action proceed. Adapt the 'command' to your project's lint command (e.g. 'ruff check .' for Python, 'npx tsc --noEmit' for TypeScript).",
   "hooks": {
     "PostToolUse": [
       {

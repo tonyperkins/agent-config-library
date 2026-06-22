@@ -1,5 +1,4 @@
 {
-  "_comment": "Example .mcp.json entries. Copy only the servers a given project actually needs.",
   "mcpServers": {
     "filesystem": {
       "command": "npx",

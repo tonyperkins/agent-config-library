@@ -7,7 +7,7 @@ the `curl | sh` install pattern. No local clone required.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh \
-  | sh -s -- --type=<simple|api|web-frontend|monorepo> [--dest=.]
+  | sh -s -- --type=<simple|api|web-frontend|python|monorepo> [--dest=.]
 ```
 
 - `--type` picks a manifest from `manifests/`.
@@ -32,17 +32,22 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/ma
 
 | Type | Pulls in |
 |---|---|
-| `simple` | Minimal CLAUDE.md, git rules, review command, default settings |
+| `simple` | Minimal CLAUDE.md, minimal code-style + git rules, review command, default settings |
 | `api` | Complex root CLAUDE.md, testing + security rules, deploy checklist, MCP example |
-| `web-frontend` | Simple CLAUDE.md, TypeScript style + testing rules |
+| `web-frontend` | Simple CLAUDE.md, TypeScript style + testing rules, deploy checklist |
+| `python` | Simple CLAUDE.md, Python PEP 8 style + testing rules, review command |
 | `monorepo` | Complex root CLAUDE.md + AGENTS.md, full rule set, MCP example |
 
 ## Adding a new type
 
 1. Create `manifests/<name>.manifest`.
 2. Each line: `<repo-relative-src-path> -> <dest-path-relative-to-project-root>`. Lines starting
-   with `#` are comments and ignored.
-3. Update the table above and this README.
+   with `#` are comments and ignored. Inline comments (after a ` #`) are also stripped.
+3. Verify every source path in the manifest actually exists in the repo — `init.sh` will
+   silently skip files it can't fetch. Run `sh init/test-init.sh` to catch this.
+4. Add a test case to `init/test-init.sh` that runs the new manifest type and asserts
+   the expected files are created.
+5. Update the table above and this README.
 
 ## Local testing (before pushing to GitHub)
 
