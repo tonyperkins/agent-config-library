@@ -61,12 +61,19 @@ TMPDIR2=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR2" 2>&1
 
 assert_exists "$TMPDIR2/CLAUDE.md" "CLAUDE.md"
+assert_exists "$TMPDIR2/.claude/rules/code-style.md" ".claude/rules/code-style.md"
+assert_exists "$TMPDIR2/.claude/rules/workflow.md" ".claude/rules/workflow.md"
+assert_exists "$TMPDIR2/.claude/rules/dependencies.md" ".claude/rules/dependencies.md"
 assert_exists "$TMPDIR2/.claude/rules/git.md" ".claude/rules/git.md"
 assert_exists "$TMPDIR2/.claude/commands/review.md" ".claude/commands/review.md"
+assert_exists "$TMPDIR2/.claude/commands/debug.md" ".claude/commands/debug.md"
+assert_exists "$TMPDIR2/.claude/commands/test-gen.md" ".claude/commands/test-gen.md"
 assert_exists "$TMPDIR2/.claude/settings.json" ".claude/settings.json"
 
 assert_contains "$TMPDIR2/CLAUDE.md" "# Project:" "CLAUDE.md has expected header"
 assert_contains "$TMPDIR2/.claude/rules/git.md" "Conventional Commits" "git.md has expected content"
+assert_contains "$TMPDIR2/.claude/rules/workflow.md" "One logical change" "workflow.md has expected content"
+assert_contains "$TMPDIR2/.claude/commands/debug.md" "Reproduce" "debug.md has expected content"
 
 rm -rf "$TMPDIR2"
 
@@ -80,6 +87,10 @@ assert_exists "$TMPDIR3/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR3/.mcp.json" ".mcp.json"
 assert_exists "$TMPDIR3/.claude/rules/testing.md" ".claude/rules/testing.md"
 assert_exists "$TMPDIR3/.claude/rules/security.md" ".claude/rules/security.md"
+assert_exists "$TMPDIR3/.claude/rules/workflow.md" ".claude/rules/workflow.md"
+assert_exists "$TMPDIR3/.claude/rules/dependencies.md" ".claude/rules/dependencies.md"
+assert_exists "$TMPDIR3/.claude/commands/debug.md" ".claude/commands/debug.md"
+assert_exists "$TMPDIR3/.claude/commands/test-gen.md" ".claude/commands/test-gen.md"
 assert_exists "$TMPDIR3/.claude/commands/deploy-checklist.md" ".claude/commands/deploy-checklist.md"
 
 # The monorepo manifest has trailing comment lines — ensure they didn't create bogus files

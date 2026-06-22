@@ -7,9 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
-- `init/test-init.sh` — test suite for `init.sh` (23 tests covering dry-run, real run,
-  idempotent re-run, --force with backups, missing/unknown --type, and manifest comment
-  handling)
+- `rules-snippets/workflow/focused-diffs.md` — constrains agents to one logical change per task
+- `rules-snippets/dependencies/ask-before-adding.md` — prevents unasked-for dependency additions
+- `commands/debug.md` — systematic debugging slash command (reproduce, trace, test, fix, verify)
+- `commands/test-gen.md` — test generation slash command with framework detection
+- `init/test-init.sh` — test suite for `init.sh` (32 tests covering dry-run, real run,
+  idempotent re-run, --force with backups, missing/unknown --type, manifest comment
+  handling, and all manifest types)
 - `CLAUDE.md` — agent config for working on this repo itself
 - `mcp/README.md` — documentation for MCP config examples (replaces inline `_comment`)
 - `rules-snippets/code-style/minimal.md` — language-agnostic code-style snippet for

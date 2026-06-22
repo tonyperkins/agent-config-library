@@ -3,8 +3,12 @@ claude-md/complex-project-root.md -> CLAUDE.md
 agents-md/generic-agents-md.md -> AGENTS.md
 rules-snippets/testing/tdd-required.md -> .claude/rules/testing.md
 rules-snippets/security/no-secrets-in-code.md -> .claude/rules/security.md
+rules-snippets/workflow/focused-diffs.md -> .claude/rules/workflow.md
+rules-snippets/dependencies/ask-before-adding.md -> .claude/rules/dependencies.md
 rules-snippets/git-conventions/conventional-commits.md -> .claude/rules/git.md
 commands/review.md -> .claude/commands/review.md
+commands/debug.md -> .claude/commands/debug.md
+commands/test-gen.md -> .claude/commands/test-gen.md
 commands/deploy-checklist.md -> .claude/commands/deploy-checklist.md
 settings/settings.json.example -> .claude/settings.json
 mcp/mcp-config-examples.json -> .mcp.json
