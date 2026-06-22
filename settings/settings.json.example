@@ -4,12 +4,31 @@
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git show*)",
       "Bash(npm test*)",
-      "Bash(npm run lint*)"
+      "Bash(npm run lint*)",
+      "Bash(npm run build*)",
+      "Bash(npx tsc --noEmit)"
     ],
     "deny": [
       "Bash(git push --force*)",
-      "Bash(rm -rf*)"
+      "Bash(rm -rf*)",
+      "Bash(DROP TABLE*)",
+      "Bash(DROP DATABASE*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm run lint --silent || true"
+          }
+        ]
+      }
     ]
   },
   "model": "<model-name>"

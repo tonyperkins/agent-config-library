@@ -1,0 +1,15 @@
+{
+  "_comment": "SessionStart hook that restores working context from .claude/session-state.md if it exists. Combine with post-tool-save-state.json for full session persistence across timeouts and restarts.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat .claude/session-state.md 2>/dev/null || echo 'No saved session state found.'"
+          }
+        ]
+      }
+    ]
+  }
+}

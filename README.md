@@ -20,13 +20,16 @@ to capture lessons as you find what actually works.
 
 | Folder | Purpose |
 |---|---|
-| `claude-md/` | Complete `CLAUDE.md` templates, by project shape (simple, complex root, nested subsystem) |
+| `claude-md/` | Complete `CLAUDE.md` templates, by project shape (simple, complex root, nested subsystem, agents-md-first) |
 | `agents-md/` | `AGENTS.md` templates (the cross-tool standard other agents also read) |
 | `rules-snippets/` | Small composable rule fragments to paste into a CLAUDE.md you're already building |
-| `skills/` | Reusable `SKILL.md` examples |
-| `commands/` | Slash command templates (`.claude/commands/*.md`) |
-| `settings/` | `settings.json` / permissions / hooks examples |
+| `skills/` | Reusable `SKILL.md` examples with YAML frontmatter (preferred over `commands/`) |
+| `commands/` | Legacy slash command templates (`.claude/commands/*.md`) — kept for backward compat |
+| `agents/` | Subagent definition templates (`.claude/agents/*.md`) — read-only reviewer, planner |
+| `settings/` | `settings.json` / permissions / hooks examples (session persistence, auto-test, lint) |
 | `mcp/` | `.mcp.json` server config examples |
+| `design-md/` | `DESIGN.md` templates — design systems as agent-readable config |
+| `output-styles/` | Output style configs (placeholder — format still emerging) |
 | `notes/` | Running log of lessons learned and where ideas came from |
 | `init/` | Scripts to bootstrap a new project's agent config from this repo |
 
@@ -48,6 +51,9 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/re
 
 - `claude-md/` = whole files you drop in wholesale for a given project shape.
 - `rules-snippets/` = one rule each, for mixing into a CLAUDE.md you're already building.
+- `skills/` is preferred over `commands/` — skills support frontmatter, auto-invocation,
+  context injection, and subdirectories. Commands are kept for backward compat.
+- `agents-md/` provides cross-tool templates that work with Cursor, Copilot, Codex, and others.
 - `notes/lessons-learned.md` is the part worth being disciplined about updating — that's the
   actual compounding value of this repo over time.
 

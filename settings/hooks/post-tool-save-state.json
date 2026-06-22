@@ -1,0 +1,16 @@
+{
+  "_comment": "PostToolUse hook that saves current task state after each file edit. Creates .claude/session-state.md with a timestamp and the file that was just edited. Combine with session-start-restore.json for full session persistence.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p .claude && echo \"## Session State - $(date -u +%Y-%m-%dT%H:%M:%SZ)\" > .claude/session-state.md && echo \"Last edited: $CLAUDE_FILE_PATH\" >> .claude/session-state.md && echo \"Current branch: $(git branch --show-current 2>/dev/null || echo 'unknown')\" >> .claude/session-state.md && git diff --stat 2>/dev/null >> .claude/session-state.md || true"
+          }
+        ]
+      }
+    ]
+  }
+}

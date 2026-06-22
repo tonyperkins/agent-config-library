@@ -13,10 +13,13 @@
 - Dev server: `npm run dev`
 - Build: `npm run build`
 
-## Code style
-- [2-4 concrete, checkable rules — not vibes. e.g. "No default exports", "Functions over classes"]
+## Architecture pointers
+- [Where the entry point is, where business logic lives, where tests go]
+- [e.g. "src/lib/ is shared utilities, src/api/ is route handlers"]
 
-## Repo conventions
+## Conventions
+- See `.claude/rules/` for code style, workflow, and dependency rules
+- See `.claude/skills/` for available slash commands (/spec, /plan, /review, /debug, /test-gen, /ship)
 - [Branch naming, commit message format, PR requirements if any]
 
 ## IMPORTANT

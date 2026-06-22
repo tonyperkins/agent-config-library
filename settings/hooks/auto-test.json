@@ -1,0 +1,16 @@
+{
+  "_comment": "PostToolUse hook that runs tests after file edits. Only use this for projects with fast test suites (< 5 seconds). For slower suites, use the /test-gen skill manually instead. Adjust the test command for your project.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm test --silent 2>&1 | tail -5 || true"
+          }
+        ]
+      }
+    ]
+  }
+}

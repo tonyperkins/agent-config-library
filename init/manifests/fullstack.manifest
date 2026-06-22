@@ -1,6 +1,10 @@
 # src-path -> dest-path (relative to project root)
+# Fullstack projects: frontend + API + design system + subagents
 claude-md/complex-project-root.md -> CLAUDE.md
 agents-md/generic-agents-md.md -> AGENTS.md
+design-md/design-system-template.md -> DESIGN.md
+rules-snippets/code-style/minimal.md -> .claude/rules/code-style.md
+rules-snippets/code-style/no-style-in-claude-md.md -> .claude/rules/meta.md
 rules-snippets/testing/tdd-required.md -> .claude/rules/testing.md
 rules-snippets/security/no-secrets-in-code.md -> .claude/rules/security.md
 rules-snippets/security/agent-boundaries.md -> .claude/rules/agent-boundaries.md
@@ -19,8 +23,7 @@ skills/debug/SKILL.md -> .claude/skills/debug/SKILL.md
 skills/test-gen/SKILL.md -> .claude/skills/test-gen/SKILL.md
 skills/ship/SKILL.md -> .claude/skills/ship/SKILL.md
 skills/deploy-checklist/SKILL.md -> .claude/skills/deploy-checklist/SKILL.md
+agents/reviewer.md -> .claude/agents/reviewer.md
+agents/planner.md -> .claude/agents/planner.md
 settings/settings.json.example -> .claude/settings.json
 mcp/mcp-config-examples.json -> .mcp.json
-
-# Reminder: for each subsystem, manually copy claude-md/nested-subsystem-example.md
-# to e.g. apps/<name>/CLAUDE.md — this script only seeds the root.

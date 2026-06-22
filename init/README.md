@@ -7,7 +7,7 @@ the `curl | sh` install pattern. No local clone required.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh \
-  | sh -s -- --type=<simple|api|web-frontend|python|monorepo> [--dest=.]
+  | sh -s -- --type=<simple|api|web-frontend|python|monorepo|design|fullstack> [--dest=.]
 ```
 
 - `--type` picks a manifest from `manifests/`.
@@ -32,11 +32,17 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/ma
 
 | Type | Pulls in |
 |---|---|
-| `simple` | Minimal CLAUDE.md, minimal code-style + git rules, review command, default settings |
-| `api` | Complex root CLAUDE.md, testing + security rules, deploy checklist, MCP example |
-| `web-frontend` | Simple CLAUDE.md, TypeScript style + testing rules, deploy checklist |
-| `python` | Simple CLAUDE.md, Python PEP 8 style + testing rules, review command |
-| `monorepo` | Complex root CLAUDE.md + AGENTS.md, full rule set, MCP example |
+| `simple` | Minimal CLAUDE.md, full rule set (style, workflow, security, dependencies), spec/plan/review/debug/test-gen/ship skills, settings |
+| `api` | Complex root CLAUDE.md, testing + security + agent-boundaries rules, all skills + deploy-checklist, MCP example |
+| `web-frontend` | Simple CLAUDE.md, TypeScript style + testing rules, all skills + deploy-checklist |
+| `python` | Simple CLAUDE.md, Python PEP 8 style + testing rules, all skills except deploy-checklist |
+| `monorepo` | Complex root CLAUDE.md + AGENTS.md, full rule set, all skills + deploy-checklist, MCP example, subagent templates |
+| `design` | Simple CLAUDE.md + minimal AGENTS.md + DESIGN.md, full rule set, all skills, subagent templates (reviewer, planner) |
+| `fullstack` | Complex root CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, all skills + deploy-checklist, subagent templates, MCP example |
+
+**Note:** All types now deploy skills to `.claude/skills/` (the recommended format).
+The legacy `commands/` directory is kept in the repo for backward compatibility but
+is no longer referenced by manifests.
 
 ## Adding a new type
 

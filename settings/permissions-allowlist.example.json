@@ -4,11 +4,24 @@
     "Bash(git status)",
     "Bash(git diff*)",
     "Bash(git log*)",
+    "Bash(git branch*)",
+    "Bash(git show*)",
+    "Bash(git remote -v)",
     "Bash(ls*)",
     "Bash(cat package.json)",
+    "Bash(cat tsconfig.json)",
     "Bash(npm test*)",
     "Bash(npm run build*)",
     "Bash(npm run lint*)",
-    "Bash(pytest*)"
+    "Bash(npm run typecheck*)",
+    "Bash(npx tsc --noEmit)",
+    "Bash(pytest*)",
+    "Bash(ruff check*)",
+    "Bash(python -m pytest*)",
+    "Bash(cargo test*)",
+    "Bash(cargo check*)",
+    "Bash(cargo clippy*)",
+    "Bash(go test*)",
+    "Bash(go vet*)"
   ]
 }

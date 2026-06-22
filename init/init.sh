@@ -12,7 +12,7 @@ usage() {
   cat <<USAGE
 Usage:
   curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/main/init/init.sh \\
-    | sh -s -- --type=<simple|api|web-frontend|python|monorepo> [options]
+    | sh -s -- --type=<simple|api|web-frontend|python|monorepo|design|fullstack> [options]
 
 Options:
   --type=TYPE      Required. Which manifest to use (see manifests/).

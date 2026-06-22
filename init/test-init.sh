@@ -43,7 +43,7 @@ OUTPUT1=$(REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR1" --d
 
 echo "$OUTPUT1" | grep -qF "would add: CLAUDE.md" && ok "dry-run shows CLAUDE.md" || fail "dry-run output missing CLAUDE.md"
 echo "$OUTPUT1" | grep -qF "would add: .claude/rules/git.md" && ok "dry-run shows git.md" || fail "dry-run output missing git.md"
-echo "$OUTPUT1" | grep -qF "would add: .claude/commands/review.md" && ok "dry-run shows review.md" || fail "dry-run output missing review.md"
+echo "$OUTPUT1" | grep -qF "would add: .claude/skills/review/SKILL.md" && ok "dry-run shows review skill" || fail "dry-run output missing review skill"
 echo "$OUTPUT1" | grep -qF "would add: .claude/settings.json" && ok "dry-run shows settings.json" || fail "dry-run output missing settings.json"
 
 # Dry-run should not create any files
@@ -62,18 +62,31 @@ REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR2" 2>&1
 
 assert_exists "$TMPDIR2/CLAUDE.md" "CLAUDE.md"
 assert_exists "$TMPDIR2/.claude/rules/code-style.md" ".claude/rules/code-style.md"
+assert_exists "$TMPDIR2/.claude/rules/meta.md" ".claude/rules/meta.md"
 assert_exists "$TMPDIR2/.claude/rules/workflow.md" ".claude/rules/workflow.md"
+assert_exists "$TMPDIR2/.claude/rules/read-before-write.md" ".claude/rules/read-before-write.md"
+assert_exists "$TMPDIR2/.claude/rules/zero-placeholders.md" ".claude/rules/zero-placeholders.md"
+assert_exists "$TMPDIR2/.claude/rules/defensive-commits.md" ".claude/rules/defensive-commits.md"
+assert_exists "$TMPDIR2/.claude/rules/interface-first.md" ".claude/rules/interface-first.md"
 assert_exists "$TMPDIR2/.claude/rules/dependencies.md" ".claude/rules/dependencies.md"
+assert_exists "$TMPDIR2/.claude/rules/verify-imports.md" ".claude/rules/verify-imports.md"
+assert_exists "$TMPDIR2/.claude/rules/agent-boundaries.md" ".claude/rules/agent-boundaries.md"
 assert_exists "$TMPDIR2/.claude/rules/git.md" ".claude/rules/git.md"
-assert_exists "$TMPDIR2/.claude/commands/review.md" ".claude/commands/review.md"
-assert_exists "$TMPDIR2/.claude/commands/debug.md" ".claude/commands/debug.md"
-assert_exists "$TMPDIR2/.claude/commands/test-gen.md" ".claude/commands/test-gen.md"
+assert_exists "$TMPDIR2/.claude/skills/spec/SKILL.md" ".claude/skills/spec/SKILL.md"
+assert_exists "$TMPDIR2/.claude/skills/plan/SKILL.md" ".claude/skills/plan/SKILL.md"
+assert_exists "$TMPDIR2/.claude/skills/review/SKILL.md" ".claude/skills/review/SKILL.md"
+assert_exists "$TMPDIR2/.claude/skills/debug/SKILL.md" ".claude/skills/debug/SKILL.md"
+assert_exists "$TMPDIR2/.claude/skills/test-gen/SKILL.md" ".claude/skills/test-gen/SKILL.md"
+assert_exists "$TMPDIR2/.claude/skills/ship/SKILL.md" ".claude/skills/ship/SKILL.md"
 assert_exists "$TMPDIR2/.claude/settings.json" ".claude/settings.json"
 
 assert_contains "$TMPDIR2/CLAUDE.md" "# Project:" "CLAUDE.md has expected header"
 assert_contains "$TMPDIR2/.claude/rules/git.md" "Conventional Commits" "git.md has expected content"
 assert_contains "$TMPDIR2/.claude/rules/workflow.md" "One logical change" "workflow.md has expected content"
-assert_contains "$TMPDIR2/.claude/commands/debug.md" "Reproduce" "debug.md has expected content"
+assert_contains "$TMPDIR2/.claude/skills/debug/SKILL.md" "Reproduce" "debug skill has expected content"
+assert_contains "$TMPDIR2/.claude/skills/spec/SKILL.md" "Restate the goal" "spec skill has expected content"
+assert_contains "$TMPDIR2/.claude/rules/read-before-write.md" "restate the goal" "read-before-write rule has expected content"
+assert_contains "$TMPDIR2/.claude/rules/zero-placeholders.md" "placeholder" "zero-placeholders rule has expected content"
 
 rm -rf "$TMPDIR2"
 
@@ -87,11 +100,20 @@ assert_exists "$TMPDIR3/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR3/.mcp.json" ".mcp.json"
 assert_exists "$TMPDIR3/.claude/rules/testing.md" ".claude/rules/testing.md"
 assert_exists "$TMPDIR3/.claude/rules/security.md" ".claude/rules/security.md"
+assert_exists "$TMPDIR3/.claude/rules/agent-boundaries.md" ".claude/rules/agent-boundaries.md"
 assert_exists "$TMPDIR3/.claude/rules/workflow.md" ".claude/rules/workflow.md"
+assert_exists "$TMPDIR3/.claude/rules/read-before-write.md" ".claude/rules/read-before-write.md"
+assert_exists "$TMPDIR3/.claude/rules/zero-placeholders.md" ".claude/rules/zero-placeholders.md"
+assert_exists "$TMPDIR3/.claude/rules/defensive-commits.md" ".claude/rules/defensive-commits.md"
+assert_exists "$TMPDIR3/.claude/rules/interface-first.md" ".claude/rules/interface-first.md"
 assert_exists "$TMPDIR3/.claude/rules/dependencies.md" ".claude/rules/dependencies.md"
-assert_exists "$TMPDIR3/.claude/commands/debug.md" ".claude/commands/debug.md"
-assert_exists "$TMPDIR3/.claude/commands/test-gen.md" ".claude/commands/test-gen.md"
-assert_exists "$TMPDIR3/.claude/commands/deploy-checklist.md" ".claude/commands/deploy-checklist.md"
+assert_exists "$TMPDIR3/.claude/rules/verify-imports.md" ".claude/rules/verify-imports.md"
+assert_exists "$TMPDIR3/.claude/skills/spec/SKILL.md" ".claude/skills/spec/SKILL.md"
+assert_exists "$TMPDIR3/.claude/skills/plan/SKILL.md" ".claude/skills/plan/SKILL.md"
+assert_exists "$TMPDIR3/.claude/skills/debug/SKILL.md" ".claude/skills/debug/SKILL.md"
+assert_exists "$TMPDIR3/.claude/skills/test-gen/SKILL.md" ".claude/skills/test-gen/SKILL.md"
+assert_exists "$TMPDIR3/.claude/skills/ship/SKILL.md" ".claude/skills/ship/SKILL.md"
+assert_exists "$TMPDIR3/.claude/skills/deploy-checklist/SKILL.md" ".claude/skills/deploy-checklist/SKILL.md"
 
 # The monorepo manifest has trailing comment lines — ensure they didn't create bogus files
 if [ -d "$TMPDIR3/Reminder:" ]; then
@@ -147,7 +169,9 @@ assert_exists "$TMPDIR8/CLAUDE.md" "CLAUDE.md"
 assert_exists "$TMPDIR8/.claude/rules/code-style.md" ".claude/rules/code-style.md"
 assert_contains "$TMPDIR8/.claude/rules/code-style.md" "PEP 8" "python code-style applied"
 assert_exists "$TMPDIR8/.claude/rules/testing.md" ".claude/rules/testing.md"
-assert_exists "$TMPDIR8/.claude/commands/review.md" ".claude/commands/review.md"
+assert_exists "$TMPDIR8/.claude/skills/review/SKILL.md" ".claude/skills/review/SKILL.md"
+assert_exists "$TMPDIR8/.claude/rules/read-before-write.md" ".claude/rules/read-before-write.md"
+assert_exists "$TMPDIR8/.claude/rules/zero-placeholders.md" ".claude/rules/zero-placeholders.md"
 
 rm -rf "$TMPDIR8"
 
@@ -156,8 +180,10 @@ echo "=== Test 9: web-frontend includes deploy-checklist ==="
 TMPDIR9=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=web-frontend --dest="$TMPDIR9" 2>&1
 
-assert_exists "$TMPDIR9/.claude/commands/deploy-checklist.md" "deploy-checklist.md"
+assert_exists "$TMPDIR9/.claude/skills/deploy-checklist/SKILL.md" "deploy-checklist skill"
+assert_exists "$TMPDIR9/.claude/skills/spec/SKILL.md" "spec skill"
 assert_exists "$TMPDIR9/.claude/rules/code-style.md" "code-style.md"
+assert_exists "$TMPDIR9/.claude/rules/read-before-write.md" "read-before-write.md"
 assert_contains "$TMPDIR9/.claude/rules/code-style.md" "TypeScript" "typescript code-style applied"
 
 rm -rf "$TMPDIR9"
@@ -168,8 +194,43 @@ TMPDIR10=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR10" 2>&1
 
 assert_exists "$TMPDIR10/.claude/rules/code-style.md" "code-style.md"
+assert_exists "$TMPDIR10/.claude/skills/spec/SKILL.md" "spec skill"
+assert_exists "$TMPDIR10/.claude/rules/agent-boundaries.md" "agent-boundaries.md"
 
 rm -rf "$TMPDIR10"
+
+echo ""
+echo "=== Test 11: design manifest includes DESIGN.md and subagents ==="
+TMPDIR11=$(mktemp -d)
+REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=design --dest="$TMPDIR11" 2>&1
+
+assert_exists "$TMPDIR11/CLAUDE.md" "CLAUDE.md"
+assert_exists "$TMPDIR11/AGENTS.md" "AGENTS.md"
+assert_exists "$TMPDIR11/DESIGN.md" "DESIGN.md"
+assert_exists "$TMPDIR11/.claude/agents/reviewer.md" "reviewer subagent"
+assert_exists "$TMPDIR11/.claude/agents/planner.md" "planner subagent"
+assert_exists "$TMPDIR11/.claude/skills/spec/SKILL.md" "spec skill"
+assert_exists "$TMPDIR11/.claude/rules/agent-boundaries.md" "agent-boundaries.md"
+
+rm -rf "$TMPDIR11"
+
+echo ""
+echo "=== Test 12: fullstack manifest includes everything ==="
+TMPDIR12=$(mktemp -d)
+REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=fullstack --dest="$TMPDIR12" 2>&1
+
+assert_exists "$TMPDIR12/CLAUDE.md" "CLAUDE.md"
+assert_exists "$TMPDIR12/AGENTS.md" "AGENTS.md"
+assert_exists "$TMPDIR12/DESIGN.md" "DESIGN.md"
+assert_exists "$TMPDIR12/.mcp.json" ".mcp.json"
+assert_exists "$TMPDIR12/.claude/agents/reviewer.md" "reviewer subagent"
+assert_exists "$TMPDIR12/.claude/agents/planner.md" "planner subagent"
+assert_exists "$TMPDIR12/.claude/skills/ship/SKILL.md" "ship skill"
+assert_exists "$TMPDIR12/.claude/skills/deploy-checklist/SKILL.md" "deploy-checklist skill"
+assert_exists "$TMPDIR12/.claude/rules/testing.md" "testing.md"
+assert_exists "$TMPDIR12/.claude/rules/security.md" "security.md"
+
+rm -rf "$TMPDIR12"
 
 echo ""
 echo "==========================="
