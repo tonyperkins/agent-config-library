@@ -6,8 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### Added
-- `skills/spec/SKILL.md` — define a task before coding (restate goal, list files, identify risks)
+### Added — Cross-tool deployment
+- `init.sh` now syncs rules to all major AI coding tools after manifest deployment:
+  `GEMINI.md` (Gemini), `.windsurfrules` (Windsurf), `.github/copilot-instructions.md`
+  (Copilot), `.cursor/rules/project.mdc` (Cursor with YAML frontmatter)
+- `AGENTS.md` added to all 7 manifest types (was only in monorepo, design, fullstack)
+- Cross-tool sync reads AGENTS.md + all `.claude/rules/*.md`, concatenates, and writes
+  to each tool's expected location — one source of truth, all tools covered
+
+### Changed — Skills separation
+- Skills are no longer deployed by `init.sh` — they're installed globally via package
+  manager (`npx skills add`) following the Agent Skills open standard
+- All 7 manifests: removed skills entries, kept rules + configs + AGENTS.md
+- `skills/README.md`: rewritten to explain skills vs rules vs configs distribution model
+- `CLAUDE.md` templates: removed `.claude/skills/` references, added `AGENTS.md` pointer
+- `README.md`: updated layout table and philosophy for cross-tool + skills separation
+- `init/README.md`: updated types table (removed skills from descriptions), added
+  cross-tool destination table, added skills installation note
+- `CLAUDE.md` (repo): updated conventions for cross-tool deployment and skills separation
+- `init/test-init.sh`: removed all skill assertions, added cross-tool sync assertions
+  (GEMINI.md, .windsurfrules, .github/copilot-instructions.md, .cursor/rules/project.mdc)
+
+### Added — Previous entries
 - `skills/plan/SKILL.md` — break a confirmed spec into a step-by-step implementation plan
 - `skills/ship/SKILL.md` — final verification before merge (tests, lint, secrets, changelog, PR)
 - `skills/review/SKILL.md` — code review skill with YAML frontmatter and allowed-tools

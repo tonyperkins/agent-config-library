@@ -17,8 +17,8 @@
 - Build: `[root-level build command]`
 
 ## Cross-cutting rules (apply everywhere)
+- Read `AGENTS.md` first for cross-tool project context
 - See `.claude/rules/` for code style, workflow, security, and dependency rules
-- See `.claude/skills/` for available slash commands (/spec, /plan, /review, /debug, /test-gen, /ship)
 - [Things that are true no matter what part of the repo you're in]
 
 ## Subagent note

@@ -18,8 +18,8 @@
 - [e.g. "src/lib/ is shared utilities, src/api/ is route handlers"]
 
 ## Conventions
+- Read `AGENTS.md` first for cross-tool project context
 - See `.claude/rules/` for code style, workflow, and dependency rules
-- See `.claude/skills/` for available slash commands (/spec, /plan, /review, /debug, /test-gen, /ship)
 - [Branch naming, commit message format, PR requirements if any]
 
 ## IMPORTANT

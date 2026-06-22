@@ -157,6 +157,82 @@ done <<MANIFEST_EOF
 $MANIFEST
 MANIFEST_EOF
 
+# ── Cross-tool sync ──────────────────────────────────────────────────────────
+# After deploying AGENTS.md and .claude/rules/*.md via the manifest, sync the
+# combined rules content to each tool's expected location so that Gemini,
+# Windsurf, Copilot, and Cursor all see the same rules as Claude Code.
+# This runs after the manifest loop, only on real (non-dry-run) executions.
+
+sync_cross_tool() {
+  if [ "$DRY_RUN" = 1 ]; then
+    echo "  (dry run — skipping cross-tool sync)"
+    return 0
+  fi
+
+  # Build combined content: AGENTS.md + all .claude/rules/*.md
+  combined=""
+  if [ -f "$DEST/AGENTS.md" ]; then
+    combined=$(cat "$DEST/AGENTS.md")
+  fi
+  if [ -d "$DEST/.claude/rules" ]; then
+    rules_content=""
+    for rulefile in "$DEST"/.claude/rules/*.md; do
+      [ -f "$rulefile" ] || continue
+      rules_content="$rules_content
+
+---
+
+$(cat "$rulefile")"
+    done
+    if [ -n "$rules_content" ]; then
+      combined="$combined
+
+## Rules
+
+$rules_content"
+    fi
+  fi
+
+  if [ -z "$combined" ]; then
+    return 0
+  fi
+
+  # Gemini: GEMINI.md
+  mkdir -p "$DEST"
+  if [ ! -f "$DEST/GEMINI.md" ] || [ "$FORCE" = 1 ]; then
+    printf '%s\n' "$combined" > "$DEST/GEMINI.md"
+    echo "  synced: GEMINI.md"
+  fi
+
+  # Windsurf: .windsurfrules
+  if [ ! -f "$DEST/.windsurfrules" ] || [ "$FORCE" = 1 ]; then
+    printf '%s\n' "$combined" > "$DEST/.windsurfrules"
+    echo "  synced: .windsurfrules"
+  fi
+
+  # GitHub Copilot: .github/copilot-instructions.md
+  mkdir -p "$DEST/.github"
+  if [ ! -f "$DEST/.github/copilot-instructions.md" ] || [ "$FORCE" = 1 ]; then
+    printf '%s\n' "$combined" > "$DEST/.github/copilot-instructions.md"
+    echo "  synced: .github/copilot-instructions.md"
+  fi
+
+  # Cursor: .cursor/rules/project.mdc (with YAML frontmatter)
+  mkdir -p "$DEST/.cursor/rules"
+  cursor_file="$DEST/.cursor/rules/project.mdc"
+  if [ ! -f "$cursor_file" ] || [ "$FORCE" = 1 ]; then
+    cursor_frontmatter="---
+description: Project rules synced from AGENTS.md
+globs:
+alwaysApply: true
+---"
+    printf '%s\n%s\n' "$cursor_frontmatter" "$combined" > "$cursor_file"
+    echo "  synced: .cursor/rules/project.mdc"
+  fi
+}
+
+sync_cross_tool
+
 if [ "$BACKED_UP" = 1 ]; then
   echo "Backups saved to: $BACKUP_ROOT"
 fi

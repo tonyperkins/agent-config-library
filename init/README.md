@@ -32,15 +32,26 @@ curl -fsSL https://raw.githubusercontent.com/tonyperkins/agent-config-library/ma
 
 | Type | Pulls in |
 |---|---|
-| `simple` | Minimal CLAUDE.md + AGENTS.md, full rule set (style, workflow, security, dependencies), spec/plan/review/debug/test-gen/ship skills, settings |
-| `api` | Complex root CLAUDE.md + AGENTS.md, testing + security + agent-boundaries rules, all skills + deploy-checklist, MCP example |
-| `web-frontend` | Simple CLAUDE.md + AGENTS.md, TypeScript style + testing rules, all skills + deploy-checklist |
-| `python` | Simple CLAUDE.md + AGENTS.md, Python PEP 8 style + testing rules, all skills except deploy-checklist |
-| `monorepo` | Complex root CLAUDE.md + AGENTS.md, full rule set, all skills + deploy-checklist, MCP example, subagent templates |
-| `design` | Simple CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, all skills, subagent templates (reviewer, planner) |
-| `fullstack` | Complex root CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, all skills + deploy-checklist, subagent templates, MCP example |
+| `simple` | CLAUDE.md + AGENTS.md, full rule set, settings |
+| `api` | Complex root CLAUDE.md + AGENTS.md, testing + security rules, MCP example |
+| `web-frontend` | CLAUDE.md + AGENTS.md, TypeScript style + testing rules |
+| `python` | CLAUDE.md + AGENTS.md, Python PEP 8 style + testing rules |
+| `monorepo` | Complex root CLAUDE.md + AGENTS.md, full rule set, MCP example |
+| `design` | CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, subagent templates |
+| `fullstack` | Complex root CLAUDE.md + AGENTS.md + DESIGN.md, full rule set, subagent templates, MCP example |
 
-**All types include AGENTS.md** for cross-tool compatibility (Claude Code, Cursor, Copilot, Codex, Gemini, etc.). CLAUDE.md is the Claude-specific layer on top.
+**All types deploy cross-tool by default.** init.sh syncs rules to every tool's expected location:
+
+| Tool | Destination |
+|---|---|
+| Claude Code | `CLAUDE.md` + `.claude/rules/*.md` (auto-loaded) |
+| Codex / shared | `AGENTS.md` |
+| Gemini | `GEMINI.md` |
+| Windsurf | `.windsurfrules` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+| Cursor | `.cursor/rules/project.mdc` (with YAML frontmatter) |
+
+**Skills are not deployed by init.sh.** Install skills globally via `npx skills add`. See `skills/README.md`.
 
 ## Adding a new type
 

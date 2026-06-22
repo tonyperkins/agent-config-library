@@ -11,11 +11,4 @@ rules-snippets/workflow/interface-first.md -> .claude/rules/interface-first.md
 rules-snippets/dependencies/ask-before-adding.md -> .claude/rules/dependencies.md
 rules-snippets/dependencies/verify-before-import.md -> .claude/rules/verify-imports.md
 rules-snippets/git-conventions/conventional-commits.md -> .claude/rules/git.md
-skills/spec/SKILL.md -> .claude/skills/spec/SKILL.md
-skills/plan/SKILL.md -> .claude/skills/plan/SKILL.md
-skills/review/SKILL.md -> .claude/skills/review/SKILL.md
-skills/debug/SKILL.md -> .claude/skills/debug/SKILL.md
-skills/test-gen/SKILL.md -> .claude/skills/test-gen/SKILL.md
-skills/ship/SKILL.md -> .claude/skills/ship/SKILL.md
-skills/deploy-checklist/SKILL.md -> .claude/skills/deploy-checklist/SKILL.md
 settings/settings.json.example -> .claude/settings.json

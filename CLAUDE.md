@@ -11,7 +11,8 @@ project's agent config.
 - Local init test: `REPO_RAW="file://$(pwd)" sh init/init.sh --type=simple --dest=/tmp/test-init --dry-run`
 
 ## Repo conventions
-- Skills are preferred over commands — `skills/` uses SKILL.md with YAML frontmatter
+- init.sh deploys cross-tool by default: AGENTS.md + CLAUDE.md + .claude/rules/ + synced to GEMINI.md, .windsurfrules, .github/copilot-instructions.md, .cursor/rules/project.mdc
+- Skills are installed globally via package manager, not deployed by init.sh
 - `commands/` is kept for backward compat but not referenced by manifests
 - Manifest format: `<repo-relative-src> -> <dest-relative-to-project-root>` (see `init/manifests/`)
 - Templates are examples, not runtime config — they use placeholders like `[name]` and `[command]`
@@ -25,4 +26,4 @@ project's agent config.
 - Don't add runtime config to this repo — it's a reference library, not a live config
 - When adding a new manifest type, also update `init/README.md` and add a test case to
   `init/test-init.sh`
-- When adding a new skill, add it to all relevant manifests and update `skills/README.md`
+- Skills are not deployed by init.sh — they're installed via `npx skills add`

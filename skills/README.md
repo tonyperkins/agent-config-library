@@ -1,6 +1,28 @@
 # Skills
 
-Reusable `SKILL.md` examples worth keeping around for reference or adapting into a new project.
+Reference `SKILL.md` templates for AI coding agent skills. These are **not deployed by `init.sh`** — skills are installed globally via package manager and work across all your projects.
+
+## How Skills Are Installed
+
+Skills follow the Agent Skills open standard. They're installed globally (not per-project) using a package manager like `npx skills`:
+
+```bash
+npx skills add tonyperkins/agent-config-library      # install all skills from this repo
+npx skills add tonyperkins/agent-config-library@spec  # install a specific skill
+```
+
+Installed skills work across Claude Code, GitHub Copilot, Cursor, Windsurf, Gemini CLI, and other supported tools. You install once, and they're available in every project.
+
+**This is different from rules and configs**, which are project-specific and deployed by `init.sh`.
+
+## Skills vs Rules vs Configs
+
+| Content | Distributed by | Scope | How |
+|---|---|---|---|
+| Skills | Package manager (`npx skills add`) | Global (all projects) | Install once, use everywhere |
+| Rules | `init.sh` | Per-project | Deployed to `.claude/rules/` + synced to each tool's rules location |
+| AGENTS.md / CLAUDE.md | `init.sh` | Per-project | Deployed to project root |
+| Settings / MCP / Subagents | `init.sh` | Per-project | Deployed to `.claude/` |
 
 ## Skills vs Commands
 
@@ -21,9 +43,6 @@ skills/
     └── SKILL.md
     └── (any supporting scripts/references the skill needs)
 ```
-
-Nothing in here is loaded automatically - copy a skill folder into a project's
-`.claude/skills/` directory when you want to use it there.
 
 ## SKILL.md Format
 

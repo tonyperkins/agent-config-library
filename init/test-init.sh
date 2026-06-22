@@ -43,7 +43,7 @@ OUTPUT1=$(REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR1" --d
 
 echo "$OUTPUT1" | grep -qF "would add: CLAUDE.md" && ok "dry-run shows CLAUDE.md" || fail "dry-run output missing CLAUDE.md"
 echo "$OUTPUT1" | grep -qF "would add: .claude/rules/git.md" && ok "dry-run shows git.md" || fail "dry-run output missing git.md"
-echo "$OUTPUT1" | grep -qF "would add: .claude/skills/review/SKILL.md" && ok "dry-run shows review skill" || fail "dry-run output missing review skill"
+echo "$OUTPUT1" | grep -qF "would add: AGENTS.md" && ok "dry-run shows AGENTS.md" || fail "dry-run output missing AGENTS.md"
 echo "$OUTPUT1" | grep -qF "would add: .claude/settings.json" && ok "dry-run shows settings.json" || fail "dry-run output missing settings.json"
 
 # Dry-run should not create any files
@@ -73,21 +73,22 @@ assert_exists "$TMPDIR2/.claude/rules/dependencies.md" ".claude/rules/dependenci
 assert_exists "$TMPDIR2/.claude/rules/verify-imports.md" ".claude/rules/verify-imports.md"
 assert_exists "$TMPDIR2/.claude/rules/agent-boundaries.md" ".claude/rules/agent-boundaries.md"
 assert_exists "$TMPDIR2/.claude/rules/git.md" ".claude/rules/git.md"
-assert_exists "$TMPDIR2/.claude/skills/spec/SKILL.md" ".claude/skills/spec/SKILL.md"
-assert_exists "$TMPDIR2/.claude/skills/plan/SKILL.md" ".claude/skills/plan/SKILL.md"
-assert_exists "$TMPDIR2/.claude/skills/review/SKILL.md" ".claude/skills/review/SKILL.md"
-assert_exists "$TMPDIR2/.claude/skills/debug/SKILL.md" ".claude/skills/debug/SKILL.md"
-assert_exists "$TMPDIR2/.claude/skills/test-gen/SKILL.md" ".claude/skills/test-gen/SKILL.md"
-assert_exists "$TMPDIR2/.claude/skills/ship/SKILL.md" ".claude/skills/ship/SKILL.md"
 assert_exists "$TMPDIR2/.claude/settings.json" ".claude/settings.json"
+
+# Cross-tool sync
+assert_exists "$TMPDIR2/GEMINI.md" "GEMINI.md"
+assert_exists "$TMPDIR2/.windsurfrules" ".windsurfrules"
+assert_exists "$TMPDIR2/.github/copilot-instructions.md" ".github/copilot-instructions.md"
+assert_exists "$TMPDIR2/.cursor/rules/project.mdc" ".cursor/rules/project.mdc"
 
 assert_contains "$TMPDIR2/CLAUDE.md" "# Project:" "CLAUDE.md has expected header"
 assert_contains "$TMPDIR2/.claude/rules/git.md" "Conventional Commits" "git.md has expected content"
 assert_contains "$TMPDIR2/.claude/rules/workflow.md" "One logical change" "workflow.md has expected content"
-assert_contains "$TMPDIR2/.claude/skills/debug/SKILL.md" "Reproduce" "debug skill has expected content"
-assert_contains "$TMPDIR2/.claude/skills/spec/SKILL.md" "Restate the goal" "spec skill has expected content"
 assert_contains "$TMPDIR2/.claude/rules/read-before-write.md" "restate the goal" "read-before-write rule has expected content"
 assert_contains "$TMPDIR2/.claude/rules/zero-placeholders.md" "placeholder" "zero-placeholders rule has expected content"
+assert_contains "$TMPDIR2/GEMINI.md" "Conventional Commits" "GEMINI.md has synced rules"
+assert_contains "$TMPDIR2/.cursor/rules/project.mdc" "alwaysApply: true" "Cursor .mdc has frontmatter"
+assert_contains "$TMPDIR2/.github/copilot-instructions.md" "Conventional Commits" "Copilot instructions has synced rules"
 
 rm -rf "$TMPDIR2"
 
@@ -109,12 +110,11 @@ assert_exists "$TMPDIR3/.claude/rules/defensive-commits.md" ".claude/rules/defen
 assert_exists "$TMPDIR3/.claude/rules/interface-first.md" ".claude/rules/interface-first.md"
 assert_exists "$TMPDIR3/.claude/rules/dependencies.md" ".claude/rules/dependencies.md"
 assert_exists "$TMPDIR3/.claude/rules/verify-imports.md" ".claude/rules/verify-imports.md"
-assert_exists "$TMPDIR3/.claude/skills/spec/SKILL.md" ".claude/skills/spec/SKILL.md"
-assert_exists "$TMPDIR3/.claude/skills/plan/SKILL.md" ".claude/skills/plan/SKILL.md"
-assert_exists "$TMPDIR3/.claude/skills/debug/SKILL.md" ".claude/skills/debug/SKILL.md"
-assert_exists "$TMPDIR3/.claude/skills/test-gen/SKILL.md" ".claude/skills/test-gen/SKILL.md"
-assert_exists "$TMPDIR3/.claude/skills/ship/SKILL.md" ".claude/skills/ship/SKILL.md"
-assert_exists "$TMPDIR3/.claude/skills/deploy-checklist/SKILL.md" ".claude/skills/deploy-checklist/SKILL.md"
+# Cross-tool sync
+assert_exists "$TMPDIR3/GEMINI.md" "GEMINI.md"
+assert_exists "$TMPDIR3/.windsurfrules" ".windsurfrules"
+assert_exists "$TMPDIR3/.github/copilot-instructions.md" ".github/copilot-instructions.md"
+assert_exists "$TMPDIR3/.cursor/rules/project.mdc" ".cursor/rules/project.mdc"
 
 # The monorepo manifest has trailing comment lines — ensure they didn't create bogus files
 if [ -d "$TMPDIR3/Reminder:" ]; then
@@ -171,9 +171,10 @@ assert_exists "$TMPDIR8/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR8/.claude/rules/code-style.md" ".claude/rules/code-style.md"
 assert_contains "$TMPDIR8/.claude/rules/code-style.md" "PEP 8" "python code-style applied"
 assert_exists "$TMPDIR8/.claude/rules/testing.md" ".claude/rules/testing.md"
-assert_exists "$TMPDIR8/.claude/skills/review/SKILL.md" ".claude/skills/review/SKILL.md"
 assert_exists "$TMPDIR8/.claude/rules/read-before-write.md" ".claude/rules/read-before-write.md"
 assert_exists "$TMPDIR8/.claude/rules/zero-placeholders.md" ".claude/rules/zero-placeholders.md"
+assert_exists "$TMPDIR8/GEMINI.md" "GEMINI.md"
+assert_exists "$TMPDIR8/.cursor/rules/project.mdc" ".cursor/rules/project.mdc"
 
 rm -rf "$TMPDIR8"
 
@@ -183,11 +184,11 @@ TMPDIR9=$(mktemp -d)
 REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=web-frontend --dest="$TMPDIR9" 2>&1
 
 assert_exists "$TMPDIR9/AGENTS.md" "AGENTS.md"
-assert_exists "$TMPDIR9/.claude/skills/deploy-checklist/SKILL.md" "deploy-checklist skill"
-assert_exists "$TMPDIR9/.claude/skills/spec/SKILL.md" "spec skill"
 assert_exists "$TMPDIR9/.claude/rules/code-style.md" "code-style.md"
 assert_exists "$TMPDIR9/.claude/rules/read-before-write.md" "read-before-write.md"
 assert_contains "$TMPDIR9/.claude/rules/code-style.md" "TypeScript" "typescript code-style applied"
+assert_exists "$TMPDIR9/GEMINI.md" "GEMINI.md"
+assert_contains "$TMPDIR9/GEMINI.md" "TypeScript" "GEMINI.md has synced TypeScript rules"
 
 rm -rf "$TMPDIR9"
 
@@ -198,8 +199,9 @@ REPO_RAW="$REPO_RAW" sh "$INIT_SH" --type=simple --dest="$TMPDIR10" 2>&1
 
 assert_exists "$TMPDIR10/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR10/.claude/rules/code-style.md" "code-style.md"
-assert_exists "$TMPDIR10/.claude/skills/spec/SKILL.md" "spec skill"
 assert_exists "$TMPDIR10/.claude/rules/agent-boundaries.md" "agent-boundaries.md"
+assert_exists "$TMPDIR10/GEMINI.md" "GEMINI.md"
+assert_exists "$TMPDIR10/.windsurfrules" ".windsurfrules"
 
 rm -rf "$TMPDIR10"
 
@@ -213,8 +215,9 @@ assert_exists "$TMPDIR11/AGENTS.md" "AGENTS.md"
 assert_exists "$TMPDIR11/DESIGN.md" "DESIGN.md"
 assert_exists "$TMPDIR11/.claude/agents/reviewer.md" "reviewer subagent"
 assert_exists "$TMPDIR11/.claude/agents/planner.md" "planner subagent"
-assert_exists "$TMPDIR11/.claude/skills/spec/SKILL.md" "spec skill"
 assert_exists "$TMPDIR11/.claude/rules/agent-boundaries.md" "agent-boundaries.md"
+assert_exists "$TMPDIR11/GEMINI.md" "GEMINI.md"
+assert_exists "$TMPDIR11/.cursor/rules/project.mdc" ".cursor/rules/project.mdc"
 
 rm -rf "$TMPDIR11"
 
@@ -229,10 +232,11 @@ assert_exists "$TMPDIR12/DESIGN.md" "DESIGN.md"
 assert_exists "$TMPDIR12/.mcp.json" ".mcp.json"
 assert_exists "$TMPDIR12/.claude/agents/reviewer.md" "reviewer subagent"
 assert_exists "$TMPDIR12/.claude/agents/planner.md" "planner subagent"
-assert_exists "$TMPDIR12/.claude/skills/ship/SKILL.md" "ship skill"
-assert_exists "$TMPDIR12/.claude/skills/deploy-checklist/SKILL.md" "deploy-checklist skill"
 assert_exists "$TMPDIR12/.claude/rules/testing.md" "testing.md"
 assert_exists "$TMPDIR12/.claude/rules/security.md" "security.md"
+assert_exists "$TMPDIR12/GEMINI.md" "GEMINI.md"
+assert_exists "$TMPDIR12/.github/copilot-instructions.md" "copilot-instructions.md"
+assert_contains "$TMPDIR12/GEMINI.md" "failing test" "GEMINI.md has synced testing rules"
 
 rm -rf "$TMPDIR12"
 
