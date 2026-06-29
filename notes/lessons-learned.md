@@ -65,3 +65,50 @@ change actually moves the needle (good or bad) on a real project.
 ### DESIGN.md as agent-readable config
 - 73+ DESIGN.md files from brands like Apple, Google, Stripe shared as agent-readable
   design system configs. New config type beyond CLAUDE.md/rules/skills.
+
+## 2026-06-28 — From a real build (Seeker OS): restraint, not just craftsmanship
+
+The existing rules enforce *how* code gets written (focused diffs, no placeholders, ask
+before deps). They don't govern *whether a thing should be built, and at what scope*. A
+full project showed the gap is real and costly. The agent reliably produced correct,
+capable code — and reliably reached one size too big. The human had to supply the "and
+minimal" constraint every time; it never appeared on its own.
+
+### The pattern: over-engineering is correct code solving a problem one size too big
+Not bugs. Each was a defensible, more-general solution where the smaller one sufficed:
+- **Premature frontend server** — a Next.js SSR app built for a "maybe later" multi-user
+  product, on a tool that's single-user and local today. The app used ~zero server
+  features (0 server actions, 0 route handlers, 0 middleware). Converting to a static
+  export was mostly deletion. The server was speculative generality that complicated the
+  entire deploy story (LB, CORS, two services) for a future that may never come.
+- **Load balancer for a demo** — reached for the best-practice multi-service single-origin
+  pattern (~$18/mo standing cost) for a read-only demo with near-zero traffic. "Best
+  practice" and "right-sized for this problem" diverged; the question was which constraint
+  actually binds (cost did).
+- **Framing taken at face value** — a hard-reject rule fired on the wrong category because
+  it matched JD/keyword framing instead of the real signal. Same class as scoring company
+  size off recruiter language ("startup culture" on a 7k-employee company). The fix was
+  always: key off the structured/verified fact, not the words describing intent.
+- **Confidently wrong from memory** — repeated assertions about field names, config state,
+  and "no change needed" that were wrong until the actual source/config was read. A
+  "hardcoded value leak" that didn't exist (it was a test fixture). The fix was always:
+  open the file, grep the string, check example-vs-real config and dev-vs-deploy layout.
+
+### Meta-lesson
+The agent optimizes for "correct and capable." It does not optimize for "minimal" or
+"right-sized for the actual problem" unless explicitly told to. That constraint has to be
+a standing rule, near the top, or it won't show up. Craftsmanship rules (clean diffs, no
+stubs) don't produce restraint (build less, build later, justify scope, verify before
+claiming) — they're different failure modes and need different rules.
+
+### Actions taken
+- Promoted the Ponytail minimal-code ladder from a note into an active rule:
+  `rules-snippets/workflow/yagni-scope.md`.
+- Added `rules-snippets/workflow/scope-check-before-building.md` (justify scope before
+  building) and `rules-snippets/workflow/verify-dont-assume.md` (ground claims in source,
+  not memory; check deploy layout and example-vs-real config).
+- Put a one-line YAGNI + verify posture in the IMPORTANT block of `claude-md/simple-project.md`
+  so the default `--type=simple` deploy starts from restraint.
+- Added "name the actual project shape (single-user tool / demo / multi-tenant)" to the
+  simple template — the right engineering depth depends on which problem it is, and the
+  agent can't infer that from code.
